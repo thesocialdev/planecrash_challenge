@@ -6,7 +6,11 @@
  */
 
 require('./bootstrap');
+require('../../../node_modules/openlayers/dist/ol.js');
 
 window.Vue = require('vue');
 
-require('./quiz');
+Vue.use(require('vue-resource'));
+Vue.use(require('vuelayers'));
+
+require('./map');

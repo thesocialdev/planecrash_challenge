@@ -13,4 +13,8 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
+   .styles([
+   		'node_modules/openlayers/dist/ol.css',
+   		'node_modules/vuelayers/lib/style.css',
+   	], 'public/css/all.css')
    .browserSync('localhost');
