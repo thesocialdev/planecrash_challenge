@@ -10447,3 +10447,7 @@ div#map .clear-coordinate.disabled {
   background: rgba(136, 136, 136, 0.5);
 }
 
+#save {
+  margin-bottom: 15px;
+}
+

@@ -50,6 +50,5 @@ class Map extends Model
     private function _makeEnvelope($extent, $isUTM)
     {
         return $envelope = "ST_Transform(ST_MakeEnvelope(" . implode(',', $extent) . ", 3857), 4326)";
-        // return $envelope = "ST_MakeEnvelope(" . implode(',', $extent) . ", 4326)";
     }
 }

@@ -8,6 +8,12 @@ For development was used laradock on a Linux environment with Debian 8.6 as Oper
 
 The code will be hosted at http://mateusbatista.com
 
+The server will require password to access, please use:
+```
+login: wikimedia
+password: planecrash
+```
+
 ## Install and Run (For Development)
 
 ### Install NPM
@@ -37,7 +43,7 @@ In my case the IP is `172.17.0.1`
 ### Install PostgreSQL
 
 ```
-sudo apt-get install -y postgresql-9.4 postgresql-contrib-9.4;
+sudo apt-get install -y postgresql-9.5 postgresql-contrib-9.5;
 
 ```
 
@@ -61,7 +67,7 @@ sudo -u postgres psql --command="CREATE DATABASE dbname OWNER pgadmin;"  > /dev/
 
 ```
   sudo apt-get install -y build-essential \
-    postgresql-server-dev-9.4 \
+    postgresql-server-dev-9.5 \
     libxml2-dev \
     libproj-dev \
     libjson0-dev \
@@ -84,6 +90,7 @@ sudo -u postgres psql --command="CREATE DATABASE dbname OWNER pgadmin;"  > /dev/
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/shp2pgsql
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/pgsql2shp
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/raster2pgsql
+  rm -rf postgis-2.2.2/
 ```
 
 ### Run needed Docker containers
@@ -126,19 +133,58 @@ npm run watch
 
 Now the project should be accessible at `localhost`
 
+## Edited files
+
+```
+.env.example                                                   
+app/Article.php                                                
+app/Http/Controllers/ArticleController.php                     
+app/Http/Controllers/MapController.php                         
+app/Http/Controllers/PlaneCrashController.php                  
+app/Http/Traits/PostgisTrait.php                               
+app/Http/Traits/RestControllerTrait.php                        
+app/Map.php                                                    
+database/migrations/2018_05_04_211002_create_articles_table.php
+database/migrations/2018_05_04_211539_create_maps_table.php    
+public/css/app.css                                             
+public/js/app.js                                               
+readme.md                                                      
+resources/assets/js/app.js                                     
+resources/assets/js/article.js                                 
+resources/assets/js/http.js                                    
+resources/assets/js/map.js                                     
+resources/assets/js/mapFactory.js                              
+resources/assets/sass/app.scss                                 
+resources/assets/sass/map.scss                                 
+resources/views/latest_plane_crash.blade.php                   
+resources/views/latest_plane_crash_edit.blade.php              
+routes/api.php                                                 
+routes/web.php 
+```
+
 ## Production server specs
 
-The server I was able to use have the following specifications:
+The server I was able to use have the following specifications, and it is hosted on Digital Ocean.
 
 - Memory: 1GB 
 - vCPUs: 1vCPU
 - SSD Disk: 25GB
 - Transfer: 1TB
 
-And it is hosted on Digital Ocean
-
 ## Future Improvements
+
+Due the time to code some improvements needs to be done:
 
 - Use JMeter to stress the server and verify performance
 - Better UX with the map on mobile devices
+- Improve responsiviness of the map
 - Configure Nginx to use effectively the 12 core for concurrent requests
+- Improve feedback messages
+- Establish a stream between the client and the server to notify when new information is added
+- Improve documentation
+- Implement some diff checker to make possible multiple concurrent edits
+- User a web editor to edit the article
+
+## Feedbacks?
+
+Thank you for reviewing this code. I am open to any kind feedback that can help me improve my skills for the future. If you have some please [email me](mailto:mateusbatistasantos@gmail.com)

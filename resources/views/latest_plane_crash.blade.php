@@ -9,8 +9,11 @@
 		<div class="card"></div>
 			<div class="card-body">
 				<h5 class="card-title">
-					{{ $title }}
-					A plane crashed 
+					<div class="row">
+						<div class="col-8">{{ $title }}</div>
+						<div class="col"><a href="/edit" class="btn btn-info float-right">Edit</a></div>
+						
+					</div>
 				</h5>
 				<div class="card-text">
 				    {{ $content }}

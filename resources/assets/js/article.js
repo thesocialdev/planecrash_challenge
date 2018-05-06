@@ -24,7 +24,7 @@ module.exports = (function() {
           // Bind the button to execute the save function
           $('#save').on('click', function () {
             saveArticle();
-            location.reload();
+            location.replace('/');
           });
       }
 
