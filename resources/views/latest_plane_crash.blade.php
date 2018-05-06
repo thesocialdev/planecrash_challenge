@@ -17,7 +17,9 @@
 					
 				</div>
 				@if ($hasMap)
-				<div id="map"></div>
+				<div class="map-container">
+					<div id="map"></div>
+				</div>
 				@endif
 			</div>
     </body> 

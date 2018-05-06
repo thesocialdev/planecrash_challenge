@@ -24,10 +24,10 @@
 								</div>
 								<div class="row">
 									<div class="btn-group btn-group-toggle float-left" data-toggle="buttons">
-									  	<label class="btn btn-secondary active">
+									  	<label class="btn btn-secondary {{ $hasMap ? 'active' : ''}}">
 									    	<input type="radio" name="enable-map" id="option1" autocomplete="off" value="true" {{ $hasMap ? 'checked' : ''}}> On
 									  	</label>
-									  	<label class="btn btn-secondary">
+									  	<label class="btn btn-secondary {{ !$hasMap ? 'active' : ''}}">
 									    	<input type="radio" name="enable-map" id="option2" autocomplete="off" value="false" {{ !$hasMap ? 'checked' : ''}}> Off
 									  	</label>
 									</div>

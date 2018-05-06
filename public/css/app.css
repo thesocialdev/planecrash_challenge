@@ -10399,18 +10399,27 @@ div#map {
 }
 
 div#map .add-feature {
+  left: 3.5em;
+}
+
+div#map .clear-new-feature {
+  left: 13em;
+}
+
+div#map .add-feature,
+div#map .clear-new-feature {
+  top: 8px;
   position: absolute;
-  top: 65px;
-  left: 8px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 4px;
   padding: 2px;
 }
 
-div#map .add-feature a {
+div#map .add-feature a,
+div#map .clear-new-feature a {
   display: block;
   margin: 1px;
-  padding: 0;
+  padding: 0px 0.5em;
   color: white;
   font-size: 18px;
   font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
@@ -10418,20 +10427,23 @@ div#map .add-feature a {
   text-decoration: none;
   text-align: center;
   height: 22px;
-  width: 22px;
+  width: 100%;
   line-height: 19px;
   background: rgba(0, 60, 136, 0.5);
 }
 
-div#map .add-feature a:hover {
+div#map .add-feature a:hover,
+div#map .clear-new-feature a:hover {
   background: rgba(0, 60, 136, 0.7);
 }
 
-div#map .new-coordinate {
+div#map .new-coordinate,
+div#map .clear-coordinate {
   border-radius: 2px 2px 0 0;
 }
 
-div#map .new-coordinate:before {
-  content: "Add Point";
+div#map .new-coordinate.disabled,
+div#map .clear-coordinate.disabled {
+  background: rgba(136, 136, 136, 0.5);
 }
 

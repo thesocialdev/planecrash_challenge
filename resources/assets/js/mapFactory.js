@@ -35,12 +35,14 @@ module.exports = (function() {
                     new ol.control.Rotate({
                       tipLabel: 'Alt + Shift + drag to rotate'
                     }),
-                    new ol.control.ScaleLine(),
+                    new ol.control.Zoom(),
+                    new ol.control.FullScreen(),
                 ],
                 'view': {
                     center: [0, 0],
                     zoom: 3,
                     maxZoom: 19,
+                    minZoom: 4,
                 },
             };
             Object.assign(config, mapConfig);
@@ -52,8 +54,13 @@ module.exports = (function() {
                     view: new ol.View(config.view),
                 });
             
+            // Insert into map the control to add new points on the map
             ol.inherits(addNewFeatureControl, ol.control.Control);
             map.addControl(new addNewFeatureControl());
+
+            // Inserto into map the control that clear the new points inserted on the map
+            ol.inherits(clearNewFeatureControl, ol.control.Control);
+            map.addControl(new clearNewFeatureControl());
 
             return map;
         },
@@ -99,16 +106,15 @@ module.exports = (function() {
             } else {
               var source = each.fc.source
             }
-
             var	layer = new ol.layer.Vector({
               style: new ol.style.Style({
 			        image: new ol.style.Circle({
 			          radius: radius,
 			          fill: new ol.style.Fill({
-			            color: 'rgba(255,0,0,0.5)'
+			            color: each.fc.id_layer === 'temp' ? 'rgba(0,255,0,0.5)' : 'rgba(255,0,0,0.5)'
 			          }),
 			          stroke: new ol.style.Stroke({
-			            color: 'rgb(255,0,0)',
+			            color: each.fc.id_layer === 'temp' ? 'rgba(0,255,0)' : 'rgba(255,0,0)',
 			            width: zoom < 15 ? zoom * 0.2 : zoom * 0.4
 			          })
   			        })
@@ -141,8 +147,9 @@ module.exports = (function() {
             var options = opt_options || {};
 
             var anchor = document.createElement('a');
+            anchor.appendChild(document.createTextNode('Insert Point'));
             anchor.href = '#new-coordinate';
-            anchor.className = 'new-coordinate';
+            anchor.className = 'new-coordinate disabled';
 
             anchor.addEventListener('click', toggleAddFeatureTool, false);
             anchor.addEventListener('touchstart', toggleAddFeatureTool, false);
@@ -162,9 +169,8 @@ module.exports = (function() {
         toggleAddFeatureTool = function (event) {
           // prevent anchor from getting appended to the url
           event.preventDefault();
+          $('.new-coordinate').toggleClass('disabled');
           addNewFeatureActivate = !addNewFeatureActivate;
-
-          // Change button CSS
         },
         saveNewFeatures = function (map, newFeaturesSource) {
           var features = newFeaturesSource.getFeatures(),
@@ -176,6 +182,44 @@ module.exports = (function() {
             points.push(coord);
           });
           return points;
+        },
+        /**
+         * @constructor
+         * @extends {ol.control.Control}
+         * @param {Object=} opt_options Control options.
+         */
+        clearNewFeatureControl = function (opt_options) {
+          
+            var options = opt_options || {};
+
+            var anchor = document.createElement('a');
+            anchor.appendChild(document.createTextNode('Clear Map'));
+            anchor.href = '#clear-coordinate';
+            anchor.className = 'clear-coordinate';
+
+            anchor.addEventListener('click', clearNewFeaturesTool, false);
+            anchor.addEventListener('touchstart', clearNewFeaturesTool, false);
+
+            var element = document.createElement('div');
+            element.className = 'clear-new-feature ol-unselectable';
+            element.appendChild(anchor);
+
+            ol.control.Control.call(this, {
+                element: element,
+                target: options.target
+            });
+        },
+        /**
+         * @param {Event} e Browser event.
+         */
+        clearNewFeaturesTool = function (event) {
+          // prevent anchor from getting appended to the url
+          event.preventDefault();
+          // Disable insertion
+          if (addNewFeatureActivate){
+            $('.new-coordinate').toggleClass('disabled');
+            addNewFeatureActivate = !addNewFeatureActivate;
+          }
         },
         addNewFeatures = function (event, map, newFeaturesSource) {
             // Add feature into source used by map
@@ -206,7 +250,8 @@ module.exports = (function() {
             plotFromRequest: plotFromRequest,
             saveNewCoordinates: saveNewCoordinates,
             addNewFeatures: addNewFeatures,
-            saveNewFeatures : saveNewFeatures
+            saveNewFeatures : saveNewFeatures,
+            toggleAddFeatureTool : toggleAddFeatureTool
         }
 
 })();

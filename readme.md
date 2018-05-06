@@ -124,7 +124,19 @@ npm run watch
 
 Now the project should be accessible at `localhost`
 
+## Production server specs
+
+The server I was able to use have the following specifications:
+
+- Memory: 1GB 
+- vCPUs: 1vCPU
+- SSD Disk: 25GB
+- Transfer: 1TB
+
+And it is hosted on Digital Ocean
+
 ## Future Improvements
 
 - Use JMeter to stress the server and verify performance
 - Better UX with the map on mobile devices
+- Configure Nginx to use effectively the 12 core for concurrent requests

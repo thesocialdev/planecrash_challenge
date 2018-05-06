@@ -1,10 +1,17 @@
 div#map {
   padding: 1em 0;
 
-  .add-feature {
+  .add-feature{
+    left: 3.5em;
+  } 
+
+  .clear-new-feature {
+    left: 13em;
+  }
+
+  .add-feature, .clear-new-feature {
+    top: 8px;
     position: absolute;
-    top: 65px;
-    left: 8px;
     background: rgba(255, 255, 255, 0.4);
     border-radius: 4px;
     padding: 2px;
@@ -12,7 +19,7 @@ div#map {
     a {
       display: block;
       margin: 1px;
-      padding: 0;
+      padding: 0px 0.5em;
       color: white;
       font-size: 18px;
       font-family:'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
@@ -20,7 +27,7 @@ div#map {
       text-decoration: none;
       text-align: center;
       height: 22px;
-      width: 22px;
+      width: 100%;
       line-height: 19px;
       background: rgba(0, 60, 136, 0.5);
      
@@ -30,11 +37,11 @@ div#map {
     }
   }
 
-  .new-coordinate {
+  .new-coordinate, .clear-coordinate {
     border-radius: 2px 2px 0 0;
-    
-    &:before {
-        content:"Add Point";
+
+    &.disabled {
+      background: rgba(136, 136, 136, 0.5);
     }
   }
 }

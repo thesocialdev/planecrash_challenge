@@ -1,32 +1,7 @@
 module.exports = (function() {
-  const DEBUG = false;
   var http = require('./http.js'),
       map = require('./map'),
      
-  	  restorePranchaConfig = function () {
-        if (typeof prancha !== 'undefined' && 'cabecalho' in prancha){
-          var request = JSON.parse(prancha.cabecalho);
-          storage = Object.assign({}, request, storage);
-          http.storage.set(storage);
-        }
-        if (typeof prancha !== 'undefined' && 'configuracoes' in prancha){
-          var pranchaConfig = JSON.parse(prancha.configuracoes);
-          // TODO: Merge geocamadas from config request
-          Object.assign(mapTopConfig, {'view' : pranchaConfig['mapTop']});
-          Object.assign(mapBottomConfig, {'view' : pranchaConfig['mapBottom']});
-          geocamadas = (typeof pranchaConfig['layers'] != 'undefined') ? pranchaConfig['layers'] : [];
-          updateLayersColors();
-          updateLayersColors(null, true);
-          checkAllGeocamadas(geocamadas);
-        }
-        if (typeof prancha !== 'undefined' && 'rodape' in prancha){
-          var rodape = JSON.parse(prancha.rodape);
-          for (var key in rodape) {
-            $('#' + key + ' input').val(rodape[key]);
-          }
-        }
-      },
-
       saveArticle = function () {
             
         var points = map.getNewPointsToSave();
@@ -37,16 +12,19 @@ module.exports = (function() {
             hasMap: $('input[name=enable-map]:checked').val(),
             points: points,
         }).then(response => {
+          // TODO: Show feedback message with the status of the response
           console.log(response);
         });
       },
 
       init = function () {
-
+          // Call map setup
           map.init();
 
+          // Bind the button to execute the save function
           $('#save').on('click', function () {
             saveArticle();
+            location.reload();
           });
       }
 

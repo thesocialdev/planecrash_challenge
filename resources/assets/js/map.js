@@ -8,14 +8,17 @@ module.exports = (function() {
       map,
       // 
       newFeaturesSource = new ol.source.Vector(),
-      // Configuração do Mapa Superior
+      // Initial map config
       mapConfig = {
         'target' : 'map',
-        'canvasScale': false
       },
 
       getNewPointsToSave = function () {
-          return mapFactory.saveNewFeatures(map, newFeaturesSource);            
+          var point = mapFactory.saveNewFeatures(map, newFeaturesSource);
+          
+          newFeaturesSource = new ol.source.Vector();
+
+          return point;
       },
 
       init = function () {
@@ -26,6 +29,11 @@ module.exports = (function() {
           map.on('moveend', event => mapFactory.plotFromRequest(map));
 
           map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
+
+          $('.clear-coordinate').on('click', function (event){
+          	newFeaturesSource = new ol.source.Vector();
+          	mapFactory.clear(map, 'temp', true);
+          });
       }
 
   return {
