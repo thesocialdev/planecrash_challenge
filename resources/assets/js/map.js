@@ -11,6 +11,7 @@ module.exports = (function() {
       // Initial map config
       mapConfig = {
         'target' : 'map',
+        'edit_mode': window.location.pathname.split( '/' )[1] === 'edit',
       },
 
       getNewPointsToSave = function () {
@@ -22,18 +23,17 @@ module.exports = (function() {
       },
 
       init = function () {
+		map = mapFactory.create(mapConfig);
 
-          map = mapFactory.create(mapConfig);
+		// When 'moving' the map get the coordinates updated from server by extent
+		map.on('moveend', event => mapFactory.plotFromRequest(map));
 
-          // When 'moving' the map get the coordinates updated from server by extent
-          map.on('moveend', event => mapFactory.plotFromRequest(map));
+		map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
 
-          map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
-
-          $('.clear-coordinate').on('click', function (event){
-          	newFeaturesSource = new ol.source.Vector();
-          	mapFactory.clear(map, 'temp', true);
-          });
+		$('.clear-coordinate').on('click', function (event){
+			newFeaturesSource = new ol.source.Vector();
+			mapFactory.clear(map, 'temp', true);
+		});
       }
 
   return {

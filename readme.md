@@ -6,6 +6,8 @@ The Tech Stack chosen was: Laravel 5.6, Nginx and PHP-FPM and PostgreSQL + PostG
 
 For development was used laradock on a Linux environment with Debian 8.6 as Operation System.
 
+The code will be hosted at http://mateusbatista.com
+
 ## Install and Run (For Development)
 
 ### Install NPM

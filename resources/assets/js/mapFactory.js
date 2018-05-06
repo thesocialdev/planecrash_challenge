@@ -53,14 +53,15 @@ module.exports = (function() {
                     interactions: config.interactions,
                     view: new ol.View(config.view),
                 });
-            
-            // Insert into map the control to add new points on the map
-            ol.inherits(addNewFeatureControl, ol.control.Control);
-            map.addControl(new addNewFeatureControl());
+            if (config['edit_mode'] === true){
+              // Insert into map the control to add new points on the map
+              ol.inherits(addNewFeatureControl, ol.control.Control);
+              map.addControl(new addNewFeatureControl());
 
-            // Inserto into map the control that clear the new points inserted on the map
-            ol.inherits(clearNewFeatureControl, ol.control.Control);
-            map.addControl(new clearNewFeatureControl());
+              // Inserto into map the control that clear the new points inserted on the map
+              ol.inherits(clearNewFeatureControl, ol.control.Control);
+              map.addControl(new clearNewFeatureControl());
+            }
 
             return map;
         },
