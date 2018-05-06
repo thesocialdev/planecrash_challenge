@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'ArticleController@show');
+
+Route::get('/edit', 'ArticleController@edit');

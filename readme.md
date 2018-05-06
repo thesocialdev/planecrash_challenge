@@ -1,59 +1,144 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Latest Plane Crash Test
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This is the code written by Mateus Batista Santos for the Full Stack Software Engineer, Reading Infrastructure (Contract), technical test.
 
-## About Laravel
+The Tech Stack chosen was: Laravel 5.6, Nginx and PHP-FPM and PostgreSQL + PostGIS. The reason to use it is because of my know-how and I didn't have to install anything new on my workstation so I could start to work as soon as possible.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+For development was used laradock on a Linux environment with Debian 8.6 as Operation System.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The code will be hosted at http://mateusbatista.com
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+## Install and Run (For Development)
 
-## Learning Laravel
+### Install NPM
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+NPM was not used within a Docker container due the slow performance. So, to run the project properly install `npm`. You can install `npm`  the way you think is better and it will run normally with recent versions. On this project I used the `3.10.10` version.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+```
+sudo apt-get install npm
+```
 
-## Laravel Sponsors
+### Install Docker and Docker Compose
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+If you are using Debian follow the official install guide to install docker
+https://docs.docker.com/install/linux/docker-ce/debian/
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+Docker Compose can be installed using a single tutorial for any linux distro
+https://docs.docker.com/compose/install/
 
-## Contributing
+Get the `docker0` bridge IP to use on future steps of installation and settings
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+sudo ifconfig docker0
+```
 
-## Security Vulnerabilities
+In my case the IP is `172.17.0.1`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Install PostgreSQL
 
-## License
+```
+sudo apt-get install -y postgresql-9.4 postgresql-contrib-9.4;
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+
+Configure PostgreSQL to accept docker requests
+
+```
+sudo sed -i 's/\(all *\)\(md5\|peer\)/\1trust/' /etc/postgresql/9.4/main/pg_hba.conf;
+sudo sed -i "/^#listen_addresses/i listen_addresses='*'" /etc/postgresql/9.4/main/postgresql.conf;
+
+echo 'host    all             all             172.17.0.1/16           md5' | sudo tee -a /etc/postgresql/9.4/main/pg_hba.conf > /dev/null 2>&1;
+```
+
+Create Database and pgadmin user
+
+```
+sudo -u postgres psql --command="CREATE USER pgadmin WITH PASSWORD 'secret';"  > /dev/null 2>&1;
+sudo -u postgres psql --command="CREATE DATABASE dbname OWNER pgadmin;"  > /dev/null 2>&1;
+```
+
+### Install and configure PostGIS
+
+```
+  sudo apt-get install -y build-essential \
+    postgresql-server-dev-9.4 \
+    libxml2-dev \
+    libproj-dev \
+    libjson0-dev \
+    libgeos-dev \
+    xsltproc \
+    docbook-xsl \
+    docbook-mathml \
+    libgdal-dev
+
+  cd ~/
+  wget http://download.osgeo.org/postgis/source/postgis-2.2.2.tar.gz > /dev/null 2>&1;
+  tar -zxvf postgis-2.2.2.tar.gz  > /dev/null 2>&1;
+  rm -rf postgis-2.2.2.tar.gz
+  cd postgis-2.2.2
+  ./configure > /dev/null 2>&1;
+  make  > /dev/null 2>&1;
+  sudo make install  > /dev/null 2>&1;
+  sudo ldconfig
+  sudo make comments-install  > /dev/null 2>&1;
+  sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/shp2pgsql
+  sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/pgsql2shp
+  sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/raster2pgsql
+```
+
+### Run needed Docker containers
+
+Inside the project folder execute the following commands to get the stack up and running:
+
+```
+cd laradock
+docker-compose up workspace nginx php-fpm
+
+```
+
+## Build and Configure project
+
+Copy the `.env-example` file into `.env` and change the needed parameters chosen for the database settings.
+
+### Run migrations
+
+Inside the root of the project execute the following commands:
+
+```
+cd laradock
+docker-compose exec workspace php artisan migrate
+
+```
+
+### Build CSS and JS with webpack
+
+Inside the root of the project execute the following commands:
+
+```
+npm run dev
+```
+
+Or, if you wish to run browser-sync
+
+```
+npm run watch
+```
+
+Now the project should be accessible at `localhost`
+
+## Production server specs
+
+The server I was able to use have the following specifications:
+
+- Memory: 1GB 
+- vCPUs: 1vCPU
+- SSD Disk: 25GB
+- Transfer: 1TB
+
+And it is hosted on Digital Ocean
+
+## Future Improvements
+
+- Use JMeter to stress the server and verify performance
+- Better UX with the map on mobile devices
+- Configure Nginx to use effectively the 12 core for concurrent requests

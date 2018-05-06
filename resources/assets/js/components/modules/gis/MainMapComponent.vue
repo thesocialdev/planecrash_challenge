@@ -6,8 +6,8 @@
 
       <vl-geoloc @update:position="geolocPosition = $event">
         <template slot-scope="geoloc">
-          <vl-feature v-if="geoloc.position" id="position-feature">
-            <vl-geom-point :coordinates="geoloc.position"></vl-geom-point>
+          <vl-feature v-if="center" id="position-feature">
+            <vl-geom-point :coordinates="center"></vl-geom-point>
             <vl-style-box>
               <vl-style-icon src="_media/marker.png" :scale="0.4" :anchor="[0.5, 1]"></vl-style-icon>
             </vl-style-box>
@@ -19,12 +19,6 @@
         <vl-source-osm></vl-source-osm>
       </vl-layer-tile>
     </vl-map>
-    <div style="padding: 20px">
-      Zoom: {{ zoom }}<br>
-      Center: {{ center }}<br>
-      Rotation: {{ rotation }}<br>
-      My geolocation: {{ geolocPosition }}
-    </div>
   </div>
 </template>
 

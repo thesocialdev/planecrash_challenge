@@ -1,0 +1,47 @@
+div#map {
+  padding: 1em 0;
+
+  .add-feature{
+    left: 3.5em;
+  } 
+
+  .clear-new-feature {
+    left: 13em;
+  }
+
+  .add-feature, .clear-new-feature {
+    top: 8px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px;
+    
+    a {
+      display: block;
+      margin: 1px;
+      padding: 0px 0.5em;
+      color: white;
+      font-size: 18px;
+      font-family:'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      height: 22px;
+      width: 100%;
+      line-height: 19px;
+      background: rgba(0, 60, 136, 0.5);
+     
+      &:hover {
+          background: rgba(0, 60, 136, 0.7);
+      }
+    }
+  }
+
+  .new-coordinate, .clear-coordinate {
+    border-radius: 2px 2px 0 0;
+
+    &.disabled {
+      background: rgba(136, 136, 136, 0.5);
+    }
+  }
+}

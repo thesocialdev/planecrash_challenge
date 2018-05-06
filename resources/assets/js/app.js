@@ -13,4 +13,7 @@ window.Vue = require('vue');
 Vue.use(require('vue-resource'));
 Vue.use(require('vuelayers'));
 
-require('./map');
+article = require('./article');
+
+article.init();
+
