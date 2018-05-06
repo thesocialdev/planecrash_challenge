@@ -50,10 +50,10 @@ sudo apt-get install -y postgresql-9.5 postgresql-contrib-9.5;
 Configure PostgreSQL to accept docker requests
 
 ```
-sudo sed -i 's/\(all *\)\(md5\|peer\)/\1trust/' /etc/postgresql/9.4/main/pg_hba.conf;
-sudo sed -i "/^#listen_addresses/i listen_addresses='*'" /etc/postgresql/9.4/main/postgresql.conf;
+sudo sed -i 's/\(all *\)\(md5\|peer\)/\1trust/' /etc/postgresql/9.5/main/pg_hba.conf;
+sudo sed -i "/^#listen_addresses/i listen_addresses='*'" /etc/postgresql/9.5/main/postgresql.conf;
 
-echo 'host    all             all             172.17.0.1/16           md5' | sudo tee -a /etc/postgresql/9.4/main/pg_hba.conf > /dev/null 2>&1;
+echo 'host    all             all             172.17.0.1/16           md5' | sudo tee -a /etc/postgresql/9.5/main/pg_hba.conf > /dev/null 2>&1;
 ```
 
 Create Database and pgadmin user
