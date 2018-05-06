@@ -10394,82 +10394,44 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/* Customize the label (the container) */
+div#map {
+  padding: 1em 0;
+}
 
-.label-container {
+div#map .add-feature {
+  position: absolute;
+  top: 65px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+div#map .add-feature a {
   display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  margin: 1px;
+  padding: 0;
+  color: white;
+  font-size: 18px;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 22px;
+  width: 22px;
+  line-height: 19px;
+  background: rgba(0, 60, 136, 0.5);
 }
 
-/* Hide the browser's default checkbox */
-
-.label-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+div#map .add-feature a:hover {
+  background: rgba(0, 60, 136, 0.7);
 }
 
-/* Hide the browser's default checkbox */
-
-.label-container img {
-  max-width: 100%;
+div#map .new-coordinate {
+  border-radius: 2px 2px 0 0;
 }
 
-/* Create a custom checkbox */
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-
-.label-container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-
-.label-container input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-
-.label-container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-
-.label-container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+div#map .new-coordinate:before {
+  content: "Add Point";
 }
 

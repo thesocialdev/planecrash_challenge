@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/quiz', 'QuizController@show');
+Route::get('/coordinates/extent', 'MapController@getFeatures');
+
+Route::post('/article', 'ArticleController@store');

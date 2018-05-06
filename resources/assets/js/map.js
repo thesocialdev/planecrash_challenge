@@ -1,11 +1,36 @@
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+module.exports = (function() {
+  const DEBUG = false;
+  var http = require('./http.js'),
+      mapFactory = require('./mapFactory.js'),
+      // Get Local Storage Value
+      storage = http.storage.get(),
+      // Mapa superior
+      map,
+      // 
+      newFeaturesSource = new ol.source.Vector(),
+      // Configuração do Mapa Superior
+      mapConfig = {
+        'target' : 'map',
+        'canvasScale': false
+      },
 
-Vue.component('map-component', require('./components/modules/gis/MainMapComponent.vue'));
+      getNewPointsToSave = function () {
+          return mapFactory.saveNewFeatures(map, newFeaturesSource);            
+      },
 
-const gis = new Vue({
-    el: '#gis',
-});
+      init = function () {
+
+          map = mapFactory.create(mapConfig);
+
+          // When 'moving' the map get the coordinates updated from server by extent
+          map.on('moveend', event => mapFactory.plotFromRequest(map));
+
+          map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
+      }
+
+  return {
+    init : init,
+    getNewPointsToSave : getNewPointsToSave
+  }
+
+})();

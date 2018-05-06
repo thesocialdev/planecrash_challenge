@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/latest-plane-crash', 'ArticleController@show');
+
+Route::get('/latest-plane-crash/edit', 'ArticleController@edit');
