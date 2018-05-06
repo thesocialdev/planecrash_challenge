@@ -2,11 +2,9 @@ module.exports = (function() {
   const DEBUG = false;
   var http = require('./http.js'),
       mapFactory = require('./mapFactory.js'),
-      // Get Local Storage Value
-      storage = http.storage.get(),
-      // Mapa superior
+
       map,
-      // 
+
       newFeaturesSource = new ol.source.Vector(),
       // Initial map config
       mapConfig = {
@@ -23,17 +21,17 @@ module.exports = (function() {
       },
 
       init = function () {
-		map = mapFactory.create(mapConfig);
+    		map = mapFactory.create(mapConfig);
 
-		// When 'moving' the map get the coordinates updated from server by extent
-		map.on('moveend', event => mapFactory.plotFromRequest(map));
+    		// When 'moving' the map get the coordinates updated from server by extent
+    		map.on('moveend', event => mapFactory.plotFromRequest(map));
 
-		map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
+    		map.on('singleclick', event => mapFactory.addNewFeatures(event, map, newFeaturesSource));
 
-		$('.clear-coordinate').on('click', function (event){
-			newFeaturesSource = new ol.source.Vector();
-			mapFactory.clear(map, 'temp', true);
-		});
+    		$('.clear-coordinate').on('click', function (event){
+    			newFeaturesSource = new ol.source.Vector();
+    			mapFactory.clear(map, 'temp', true);
+    		});
       }
 
   return {

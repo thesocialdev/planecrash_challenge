@@ -9,8 +9,10 @@ For development was used laradock on a Linux environment with Debian 8.6 as Oper
 The code will be hosted at http://mateusbatista.com
 
 The server will require password to access, please use:
+```
 login: wikimedia
 password: planecrash
+```
 
 ## Install and Run (For Development)
 
@@ -130,6 +132,35 @@ npm run watch
 
 Now the project should be accessible at `localhost`
 
+## Edited files
+
+```
+.env.example                                                   
+app/Article.php                                                
+app/Http/Controllers/ArticleController.php                     
+app/Http/Controllers/MapController.php                         
+app/Http/Controllers/PlaneCrashController.php                  
+app/Http/Traits/PostgisTrait.php                               
+app/Http/Traits/RestControllerTrait.php                        
+app/Map.php                                                    
+database/migrations/2018_05_04_211002_create_articles_table.php
+database/migrations/2018_05_04_211539_create_maps_table.php    
+public/css/app.css                                             
+public/js/app.js                                               
+readme.md                                                      
+resources/assets/js/app.js                                     
+resources/assets/js/article.js                                 
+resources/assets/js/http.js                                    
+resources/assets/js/map.js                                     
+resources/assets/js/mapFactory.js                              
+resources/assets/sass/app.scss                                 
+resources/assets/sass/map.scss                                 
+resources/views/latest_plane_crash.blade.php                   
+resources/views/latest_plane_crash_edit.blade.php              
+routes/api.php                                                 
+routes/web.php 
+```
+
 ## Production server specs
 
 The server I was able to use have the following specifications, and it is hosted on Digital Ocean.
@@ -139,8 +170,6 @@ The server I was able to use have the following specifications, and it is hosted
 - SSD Disk: 25GB
 - Transfer: 1TB
 
-
-
 ## Future Improvements
 
 Due the time to code some improvements needs to be done:
@@ -149,3 +178,8 @@ Due the time to code some improvements needs to be done:
 - Better UX with the map on mobile devices
 - Improve responsiviness of the map
 - Configure Nginx to use effectively the 12 core for concurrent requests
+- Improve feedback messages
+- Establish a stream between the client and the server to notify when new information is added
+- Improve documentation
+- Implement some diff checker to make possible multiple concurrent edits
+- User a web editor to edit the article
