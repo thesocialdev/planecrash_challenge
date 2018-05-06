@@ -43,7 +43,7 @@ In my case the IP is `172.17.0.1`
 ### Install PostgreSQL
 
 ```
-sudo apt-get install -y postgresql-9.4 postgresql-contrib-9.4;
+sudo apt-get install -y postgresql-9.5 postgresql-contrib-9.5;
 
 ```
 
@@ -67,7 +67,7 @@ sudo -u postgres psql --command="CREATE DATABASE dbname OWNER pgadmin;"  > /dev/
 
 ```
   sudo apt-get install -y build-essential \
-    postgresql-server-dev-9.4 \
+    postgresql-server-dev-9.5 \
     libxml2-dev \
     libproj-dev \
     libjson0-dev \
@@ -90,6 +90,7 @@ sudo -u postgres psql --command="CREATE DATABASE dbname OWNER pgadmin;"  > /dev/
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/shp2pgsql
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/pgsql2shp
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/raster2pgsql
+  rm -rf postgis-2.2.2/
 ```
 
 ### Run needed Docker containers
@@ -183,3 +184,7 @@ Due the time to code some improvements needs to be done:
 - Improve documentation
 - Implement some diff checker to make possible multiple concurrent edits
 - User a web editor to edit the article
+
+## Feedbacks?
+
+Thank you for reviewing this code. I am open to any kind feedback that can help me improve my skills for the future. If you have some please [email me](mailto:mateusbatistasantos@gmail.com)
