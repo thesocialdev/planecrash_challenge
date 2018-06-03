@@ -8,11 +8,6 @@
 require('./bootstrap');
 require('../../../node_modules/openlayers/dist/ol.js');
 
-window.Vue = require('vue');
-
-Vue.use(require('vue-resource'));
-Vue.use(require('vuelayers'));
-
 article = require('./article');
 
 article.init();

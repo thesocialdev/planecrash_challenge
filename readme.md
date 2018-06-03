@@ -1,17 +1,17 @@
-# Latest Plane Crash Test
+# Latest Plane Crash Coding Challenge
 
-This is the code written by Mateus Batista Santos for the Full Stack Software Engineer, Reading Infrastructure (Contract), technical test.
+This is the code written by Mateus Batista Santos for the Full Stack Software Engineer technical test.
 
 The Tech Stack chosen was: Laravel 5.6, Nginx and PHP-FPM and PostgreSQL + PostGIS. The reason to use it is because of my know-how and I didn't have to install anything new on my workstation so I could start to work as soon as possible.
 
 For development was used laradock on a Linux environment with Debian 8.6 as Operation System.
 
-The code will be hosted at http://mateusbatista.com
+## The Coding Challenge Specifications
 
-The server will require password to access, please use:
 ```
-login: wikimedia
-password: planecrash
+You are building an API and web frontend for a mini-Wikipedia with only a single long article called 'Latest_plane_crash'. Shortly after a plane crash happened, there is a surge of API requests for this article from app and desktop users (greater than 20K requests per second). As an approximation for some data massaging, each request for the article in your server needs to recursively calculate fibonacci(34).
+
+At the same time, a lot of editors following the news are scrambling to update the page with an interactive map as details emerge (up to 10 uploads per second). Updates to the page happen with a simple editor interface. Your interface also has an affordance to Add a Map, which allows for adding a map and one or more points of interest in the map to a page. Subsequent loads of the page should show an interactive map in the correct place. Your server code will run on a single 12-core server.
 ```
 
 ## Install and Run (For Development)
@@ -99,13 +99,20 @@ Inside the project folder execute the following commands to get the stack up and
 
 ```
 cd laradock
-docker-compose up workspace nginx php-fpm
+docker-compose up -d workspace nginx php-fpm
 
 ```
 
 ## Build and Configure project
 
 Copy the `.env-example` file into `.env` and change the needed parameters chosen for the database settings.
+
+```bash
+cd laradock
+docker-compose exec workspace composer install
+cd ../ # go back to the project root directory
+npm install
+```
 
 ### Run migrations
 
@@ -133,43 +140,11 @@ npm run watch
 
 Now the project should be accessible at `localhost`
 
-## Edited files
+If npm fails to compile it might be some wrong dependencies installation. Try:
 
 ```
-.env.example                                                   
-app/Article.php                                                
-app/Http/Controllers/ArticleController.php                     
-app/Http/Controllers/MapController.php                         
-app/Http/Controllers/PlaneCrashController.php                  
-app/Http/Traits/PostgisTrait.php                               
-app/Http/Traits/RestControllerTrait.php                        
-app/Map.php                                                    
-database/migrations/2018_05_04_211002_create_articles_table.php
-database/migrations/2018_05_04_211539_create_maps_table.php    
-public/css/app.css                                             
-public/js/app.js                                               
-readme.md                                                      
-resources/assets/js/app.js                                     
-resources/assets/js/article.js                                 
-resources/assets/js/http.js                                    
-resources/assets/js/map.js                                     
-resources/assets/js/mapFactory.js                              
-resources/assets/sass/app.scss                                 
-resources/assets/sass/map.scss                                 
-resources/views/latest_plane_crash.blade.php                   
-resources/views/latest_plane_crash_edit.blade.php              
-routes/api.php                                                 
-routes/web.php 
+npm install ol
 ```
-
-## Production server specs
-
-The server I was able to use have the following specifications, and it is hosted on Digital Ocean.
-
-- Memory: 1GB 
-- vCPUs: 1vCPU
-- SSD Disk: 25GB
-- Transfer: 1TB
 
 ## Future Improvements
 
@@ -187,4 +162,4 @@ Due the time to code some improvements needs to be done:
 
 ## Feedbacks?
 
-Thank you for reviewing this code. I am open to any kind feedback that can help me improve my skills for the future. If you have some please [email me](mailto:mateusbatistasantos@gmail.com)
+Thank you for reviewing this code. I am open to any kind feedback that can help me improve my skills for the future. If you have some please [email me](mailto:mateus.batista@grupotesseract.com.br)
